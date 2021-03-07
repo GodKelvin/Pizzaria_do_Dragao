@@ -9,7 +9,9 @@ drop table if exists PIZZA_INGREDIENTE cascade;
 
 create table CLIENTE(
 	cd_cliente SERIAL primary key not null,
-	nome_pessoa varchar(50) not null,
+	nome varchar(50) not null,
+	senha varchar(50) not null,
+	email varchar(50) not null,
 	cpf varchar(11) not null,
 	data_nascimento date not null
 );

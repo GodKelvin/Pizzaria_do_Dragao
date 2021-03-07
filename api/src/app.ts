@@ -1,9 +1,13 @@
-import express, {Application, Request, Response}  from "express";
+import express from 'express';
+import indexRoutes from './routes/indexRoutes';
 
-const app: express.Application = express();
+const app = express();
+//Permite converter o dado que vem em json
+app.use(express.json());
+//Converter dados de um formulario em JSON
+app.use(express.urlencoded({extended: false}));
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello");
-});
+//Importa as rotas
+app.use(indexRoutes);
 
-app.listen(5000, () => console.log("Server running"));
+app.listen(5000, () => console.log("Server running on port 5000"));
