@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import * as ctrl from '../controllers/indexController';
+import pizzasRoutes from '../routes/pizzas/rt_pizzas';
 
-const router = Router();
+const routes = Router();
 
-router.get('/users', ctrl.getUsers);
+//Modulos criados para as rotas
+routes.use(pizzasRoutes);
 
-export default router;
+export default routes;
