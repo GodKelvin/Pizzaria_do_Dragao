@@ -1,19 +1,27 @@
 /*Eliminando estrutura do banco de dados*/
-drop table if exists CLIENTE cascade;
+drop table if exists USUARIO cascade;
 drop table if exists PEDIDO cascade;
-drop table if exists CLIENTE_PEDIDO cascade;
+drop table if exists USUARIO_PEDIDO cascade;
 drop table if exists PIZZA cascade;
 drop table if exists PEDIDO_PIZZA cascade;
 drop table if exists INGREDIENTE cascade;
 drop table if exists PIZZA_INGREDIENTE cascade;
+drop table if exists TIPO_USUARIO cascade;
 
-create table CLIENTE(
-	cd_cliente SERIAL primary key not null,
+
+create table TIPO_USUARIO(
+	cd_tipo_usuario SERIAL primary key not null,
+	desc_tipo_usuario varchar(25)
+);
+
+create table USUARIO(
+	cd_usuario SERIAL primary key not null,
 	nome varchar(50) not null,
 	senha varchar(50) not null,
 	email varchar(50) not null,
 	cpf varchar(11) not null,
-	data_nascimento date not null
+	data_nascimento date not null,
+	fk_cd_tipo_usuario integer
 );
 
 create table PEDIDO(
@@ -21,9 +29,9 @@ create table PEDIDO(
 	total_valor float not null
 );
 
-create table CLIENTE_PEDIDO(
-	cd_cliente_pedido SERIAL primary key not null,
-	fk_cd_cliente integer not null,
+create table USUARIO_PEDIDO(
+	cd_usuario_pedido SERIAL primary key not null,
+	fk_cd_usuario integer not null,
 	fk_cd_pedido integer not null
 );
 
@@ -51,8 +59,11 @@ create table PIZZA_INGREDIENTE(
 	fk_cd_ingrediente integer not null
 );
 
-alter table CLIENTE_PEDIDO
-add foreign key(fk_cd_cliente) references CLIENTE(cd_cliente),
+alter table USUARIO
+add foreign key(fk_cd_tipo_usuario) references TIPO_USUARIO(cd_tipo_usuario);
+
+alter table USUARIO_PEDIDO
+add foreign key(fk_cd_usuario) references USUARIO(cd_usuario),
 add foreign key(fk_cd_pedido) references PEDIDO(cd_pedido);
 
 alter table PEDIDO_PIZZA
@@ -63,6 +74,11 @@ alter table PIZZA_INGREDIENTE
 add foreign key(fk_cd_pizza) references PIZZA(cd_pizza),
 add foreign key(fk_cd_ingrediente) references INGREDIENTE(cd_ingrediente);
 
+
+--Insert
+INSERT INTO TIPO_USUARIO(desc_tipo_usuario)
+VALUES 	('adm'),
+		('cliente');
 
 INSERT INTO ingrediente(nm_ingrediente)
 VALUES ('tomate'),

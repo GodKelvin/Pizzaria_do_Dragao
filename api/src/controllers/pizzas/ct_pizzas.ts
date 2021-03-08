@@ -1,17 +1,20 @@
 import {Request, Response} from 'express';
-import {Query, QueryResult} from 'pg';
-import {pool} from '../../database';
+import {QueryResult} from 'pg';
+import {pool, bd} from '../../database';
 
-export const getPizzas = async (req: Request, res: Response):Promise<Response> => {
+export const getPizzas = async (req: Request, res: Response):Promise<any> => {
     try{
-        const response: QueryResult = await pool.query('SELECT * FROM pizza');
-        return res.status(200).json(response.rows);
+        bd.select().from('pizza').then(rows => {
+            return res.status(200).json(rows);
+        });
+        //return res.status(200).json(response);
     }catch(error){
         console.log("ERROR: ", error);
         return res.status(500).json("Internal Server Error");
     }
 }
 
+//Refatorar codigo
 export const getPizzaByID = async (req: Request, res: Response):Promise<Response> => {
     try{
         const id = parseInt(req.params.id);
