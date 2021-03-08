@@ -81,16 +81,22 @@ VALUES 	('adm'),
 		('cliente');
 
 INSERT INTO ingrediente(nm_ingrediente)
-VALUES ('tomate'),
-	   ('ovo'),
+VALUES ('Molho de Tomate'),
+	   ('Mussarela'),
 	   ('cebola'),
 	   ('palmito'),
 	   ('bacon'),
 	   ('calabresa'), 
 	   ('frango'),
 	   ('lombo canadense'),
-	   ('mussarela'),
-	   ('carne'); 
+	   ('ovo'),
+	   ('carne'),
+	   ('goiabada'),
+	   ('tomate'),
+	   ('catupiry'),
+	   ('manjericão'),
+	   ('presunto'),
+	   ('camarão'); 
 
 insert into pizza (nm_pizza, preco) 
 	values  ('Marguerita', 30 ),
