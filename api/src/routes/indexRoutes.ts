@@ -8,12 +8,13 @@ const routes = Router();
 
 
 //midleware
-routes.use(authMiddleware);
+
 
 //Modulos criados para as rotas
 routes.use(pizzasRoutes);
 routes.use(usersRoutes);
 routes.use(authRoutes);
+
 
 
 export default routes;
