@@ -6,13 +6,19 @@ import {HTTP_STATUS} from '../../utils/utils';
 //Checar parametros
 export const createUser = async (req: Request, res: Response): Promise<any> => {
     try{
-        let {nome_usuario, senha, email, cpf, data_nascimento, tipo_usuario, telefone} = req.body;
-        
-        console.log(nome_usuario, senha, email, cpf, data_nascimento, tipo_usuario);
-        senha = bcrypt.hashSync(senha, 9);
+        const checkFields = validationResult(req);
+        if(!checkFields.isEmpty()){
+            res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
+            return;
+        }
 
+        let {email} = req.body;
         bd.select().from('usuario').where('email', email).then(row => {
             if(!row.length){
+                //Se nao encontrar o email, captura o restante dos parametros
+                let {nome_usuario, senha, cpf, data_nascimento, tipo_usuario, telefone} = req.body;
+                senha = bcrypt.hashSync(senha, 9);
+                
                 bd('usuario').insert({
                     nome: nome_usuario,
                     senha: senha,
@@ -22,17 +28,23 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
                     telefone: telefone,
                     fk_cd_tipo_usuario: tipo_usuario
 
-                }).then(row => {
-                    res.status(HTTP_STATUS.OK).json("usuario criado com sucesso");
+                }).then((_row) => {
+                    let res_ok = {
+                        userName: nome_usuario,
+                        email: email,
+                        data_nascimento: data_nascimento,
+                        telefone: telefone
+                    };
+                    res.status(HTTP_STATUS.OK).json(res_ok);
                 })
             }else{
-                res.status(HTTP_STATUS.BAD_REQUEST).json("email já cadastrado");
+                let res_bad = {
+                    error: "email já cadastrado"
+                };
+                res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
             }
         });
     }catch(error){
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");
     }
 }
-
-
-
