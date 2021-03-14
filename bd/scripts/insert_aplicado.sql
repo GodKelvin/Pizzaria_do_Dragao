@@ -17,10 +17,11 @@ create table TIPO_USUARIO(
 create table USUARIO(
 	cd_usuario SERIAL primary key not null,
 	nome varchar(50) not null,
-	senha varchar(50) not null,
+	senha varchar(120) not null,
 	email varchar(50) not null,
 	cpf varchar(11) not null,
 	data_nascimento date not null,
+	telefone varchar(15),
 	fk_cd_tipo_usuario integer
 );
 

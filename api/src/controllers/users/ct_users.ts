@@ -1,26 +1,38 @@
 import {Request, Response} from 'express';
+import bcrypt from 'bcryptjs';
 import {bd} from '../../database';
-
+import {check, body, validationResult} from 'express-validator';
+import {HTTP_STATUS} from '../../utils/utils';
 //Checar parametros
 export const createUser = async (req: Request, res: Response): Promise<any> => {
     try{
-        const {nome_usuario, senha_cliente, email_cliente, cpf_cliente, data_nascimento_cliente} = req.body;
-        bd.select().from('cliente').where('email', email_cliente).then(row => {
-            console.log("ROW: ", row);
-            if(!row.length){
-                console.log("OPA!");
-                bd('cliente').insert({
-                    nome: nome_usuario,
-                    senha: senha_cliente,
-                    email: email_cliente,
+        let {nome_usuario, senha, email, cpf, data_nascimento, tipo_usuario, telefone} = req.body;
+        
+        console.log(nome_usuario, senha, email, cpf, data_nascimento, tipo_usuario);
+        senha = bcrypt.hashSync(senha, 9);
 
+        bd.select().from('usuario').where('email', email).then(row => {
+            if(!row.length){
+                bd('usuario').insert({
+                    nome: nome_usuario,
+                    senha: senha,
+                    email: email,
+                    cpf: cpf,
+                    data_nascimento: data_nascimento,
+                    telefone: telefone,
+                    fk_cd_tipo_usuario: tipo_usuario
+
+                }).then(row => {
+                    res.status(HTTP_STATUS.OK).json("usuario criado com sucesso");
                 })
             }else{
-                console.log("EXISTE :(");
+                res.status(HTTP_STATUS.BAD_REQUEST).json("email já cadastrado");
             }
         });
     }catch(error){
-
+        res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");
     }
 }
+
+
 
