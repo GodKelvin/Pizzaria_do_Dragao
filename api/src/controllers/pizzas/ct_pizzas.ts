@@ -7,7 +7,6 @@ export const getPizzas = async (req: Request, res: Response):Promise<any> => {
         bd.select().from('pizza').then(rows => {
             return res.status(200).json(rows);
         });
-        //return res.status(200).json(response);
     }catch(error){
         console.log("ERROR: ", error);
         return res.status(500).json("Internal Server Error");

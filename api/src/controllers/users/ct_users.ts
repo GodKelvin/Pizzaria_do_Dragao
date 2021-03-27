@@ -1,7 +1,7 @@
 import {Request, Response} from 'express';
 import bcrypt from 'bcryptjs';
 import {bd} from '../../database';
-import {check, body, validationResult} from 'express-validator';
+import {validationResult} from 'express-validator';
 import {HTTP_STATUS} from '../../utils/utils';
 //Checar parametros
 export const createUser = async (req: Request, res: Response): Promise<any> => {
