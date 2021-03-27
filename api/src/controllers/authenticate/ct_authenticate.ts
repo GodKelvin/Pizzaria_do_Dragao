@@ -20,6 +20,7 @@ interface User{
 
 export const authenticate = async (req: Request, res: Response): Promise<any> => {
     try{
+        console.log("REQ: ", req.body);
         const checkFields = validationResult(req);
         if(!checkFields.isEmpty()){
             res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
@@ -46,7 +47,7 @@ export const authenticate = async (req: Request, res: Response): Promise<any> =>
                         };
 
                         const res_login = {
-                            user: dataUser,
+                            //user: dataUser,
                             token: tokenUser
                         };
                         res.status(HTTP_STATUS.OK).json(res_login);
@@ -60,6 +61,7 @@ export const authenticate = async (req: Request, res: Response): Promise<any> =>
             }
         });
     }catch(error){
+        console.log("ERROR: ", error);
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");
     }
 }

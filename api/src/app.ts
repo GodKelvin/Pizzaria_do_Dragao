@@ -1,8 +1,11 @@
 import express from 'express';
 import authMiddleware from './middlewares/authMiddleware';
 import indexRoutes from './routes/indexRoutes';
+import cors from 'cors';
 
 const app = express();
+
+app.use(cors());
 //Permite converter o dado que vem em json
 app.use(express.json());
 //Converter dados de um formulario em JSON

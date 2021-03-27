@@ -1,0 +1,31 @@
+<div style="margin-top: 20%; border-style: double;">
+    <dx-form
+        id="formLogin"
+        [(formData)]="dataLogin">
+
+
+        <!--Email-->
+        <dxi-item 
+            dataField="email"
+            editorType="dxTextArea"
+            [editorOptions]="{width: '50%'}">
+        </dxi-item>
+        
+        <!--Senha-->
+        <dxi-item 
+            dataField="senha"
+            editorType="dxTextArea"
+            [editorOptions]="{width: '50%'}">
+        </dxi-item>
+    </dx-form>
+
+    <div style="padding-top: 2%;">
+        <dx-button
+            stylingMode="contained"
+            text="Contained"
+            type="normal"
+            [width]="120"
+            (onClick)="login()">
+        </dx-button>
+    </div>
+</div>
