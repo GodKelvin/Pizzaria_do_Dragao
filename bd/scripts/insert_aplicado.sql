@@ -1,7 +1,7 @@
 /*Eliminando estrutura do banco de dados*/
 drop table if exists USUARIO cascade;
 drop table if exists PEDIDO cascade;
-drop table if exists USUARIO_PEDIDO cascade;
+
 drop table if exists PIZZA cascade;
 drop table if exists PEDIDO_PIZZA cascade;
 drop table if exists INGREDIENTE cascade;
@@ -27,13 +27,8 @@ create table USUARIO(
 
 create table PEDIDO(
 	cd_pedido SERIAL primary key not null,
-	total_valor float not null
-);
-
-create table USUARIO_PEDIDO(
-	cd_usuario_pedido SERIAL primary key not null,
-	fk_cd_usuario integer not null,
-	fk_cd_pedido integer not null
+	total_valor float not null,
+	fk_cd_usuario integer not null
 );
 
 
@@ -44,7 +39,7 @@ create table PIZZA(
 );
 
 create table PEDIDO_PIZZA(
-	cod_pedido_pizza SERIAL not null,
+	cd_pedido_pizza SERIAL not null,
 	fk_cd_pizza integer not null,
 	fk_cd_pedido integer not null
 );
@@ -63,9 +58,8 @@ create table PIZZA_INGREDIENTE(
 alter table USUARIO
 add foreign key(fk_cd_tipo_usuario) references TIPO_USUARIO(cd_tipo_usuario);
 
-alter table USUARIO_PEDIDO
-add foreign key(fk_cd_usuario) references USUARIO(cd_usuario),
-add foreign key(fk_cd_pedido) references PEDIDO(cd_pedido);
+alter table PEDIDO
+add foreign key(fk_cd_usuario) references USUARIO(cd_usuario);
 
 alter table PEDIDO_PIZZA
 add foreign key(fk_cd_pizza) references PIZZA(cd_pizza),
