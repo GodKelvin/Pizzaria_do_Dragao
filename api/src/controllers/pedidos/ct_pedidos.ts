@@ -1,6 +1,5 @@
 import {Request, Response} from 'express';
-import {QueryResult} from 'pg';
-import {pool, bd} from '../../database';
+import {bd} from '../../database';
 import {HTTP_STATUS} from '../../utils/utils';
 import {validationResult} from 'express-validator';
 
@@ -55,7 +54,7 @@ export const getPedidosDetails = async (req: Request, res: Response):Promise<any
         .select(
             'pedido.valor_pedido as valorPedido',
             'pedido.data_pedido as dataPedido',
-            bd.raw('ARRAY_AGG(pizza.cd_pizza) as listaPizzasPedido')
+            bd.raw('json_agg((pizza.cd_pizza, pizza.nm_pizza)) as listaPizzasPedidos')
         ).groupBy('pedido.valor_pedido', 'pedido.data_pedido')
         .then(rows => {
             res.status(HTTP_STATUS.OK).json(rows);
