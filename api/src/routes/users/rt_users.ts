@@ -3,7 +3,7 @@ import * as ctrl from '../../controllers/users/ct_users';
 import {check} from 'express-validator';
 const usersRoutes = Router();
 
-usersRoutes.post('/api/createUser', registerValidator(), ctrl.createUser);
+usersRoutes.post('/createUser', registerValidator(), ctrl.createUser);
 
 //Funcoes que checa os parametros obrigatorios das rotas
 //Inserir mais verificacoes

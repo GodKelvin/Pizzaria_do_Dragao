@@ -16,7 +16,17 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
         bd.select().from('usuario').where('email', email).then(row => {
             if(!row.length){
                 //Se nao encontrar o email, captura o restante dos parametros
-                let {nome_usuario, senha, cpf, data_nascimento, tipo_usuario, telefone} = req.body;
+                let {nome_usuario, senha, cpf, data_nascimento, tipo_usuario, telefone, confirmar_senha} = req.body;
+
+                //Verifica se as senhas sao iguais
+                if(senha != confirmar_senha){
+                    let res_bad = {
+                        error: "Senhas não conferem"
+                    };
+                    res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+                    return;
+                }
+
                 senha = bcrypt.hashSync(senha, 9);
                 
                 bd('usuario').insert({

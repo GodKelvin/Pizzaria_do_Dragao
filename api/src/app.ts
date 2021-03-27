@@ -10,10 +10,8 @@ app.use(express.urlencoded({extended: false}));
 
 //Protegendo as rotas, exceto a de login e criacao de usuario
 app.use(/\/((?!login)(?!createUser).)*/, authMiddleware);
-//app.use(/\/((?!api).)*/, authMiddleware);
 
 //Importa as rotas
 app.use(indexRoutes);
-
 
 app.listen(5000, () => console.log("Server running on port 5000"));

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import pizzasRoutes from '../routes/pizzas/rt_pizzas';
-import usersRoutes from '../routes/usuarios/rt_users';
+import usersRoutes from './users/rt_users';
 import authRoutes from '../routes/authenticate/rt_authenticate';
 import authMiddleware from '../middlewares/authMiddleware';
 
