@@ -4,6 +4,7 @@ import { LoginService } from 'src/app/resources/services/login.service';
 import { AccountService } from 'src/app/resources/services/account.service';
 import {Usuario} from '../../resources/models/user.model';
 import {notificacao} from '../../resources/utils/UtilsUI';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,10 @@ export class LoginComponent implements OnInit {
   public dataNewuser: Usuario;
   public showPopUp: boolean = false;
 
-  constructor(private loginService: LoginService, private accountService: AccountService) { 
+  constructor(
+    private loginService: LoginService, 
+    private accountService: AccountService,
+    private router: Router) { 
     
   }
 
@@ -50,7 +54,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(this.dataLogin)
       .subscribe(res => {
         //Trocar de rota
-        
+        this.router.navigate(['menu-principal']);
       }, _error => {
         notificacao("Email ou Senha inválidos", "error");
       });
