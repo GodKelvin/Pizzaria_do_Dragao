@@ -49,6 +49,7 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
                 })
             }else{
                 let res_bad = {
+                    type: 'email',
                     error: "email já cadastrado"
                 };
                 res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);

@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { DxButtonModule, DxDataGridModule, DxFormModule, DxTextBoxModule, DxValidatorModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxFormModule, DxPopupModule, DxTextBoxModule, DxValidatorModule } from 'devextreme-angular';
 import { DxiItemModule } from 'devextreme-angular/ui/nested';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,7 +22,8 @@ import { LoginComponent } from './views/login/login.component';
     DxButtonModule,
     DxTextBoxModule,
     DxValidatorModule,
-    HttpClientModule
+    HttpClientModule,
+    DxPopupModule
   ],
   providers: [],
   bootstrap: [AppComponent]
