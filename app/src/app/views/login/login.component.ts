@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
         //Trocar de rota
         this.router.navigate(['menu-principal']);
       }, _error => {
+        console.log("ERROR: ", _error);
         notificacao("Email ou Senha inválidos", "error");
       });
     }else{

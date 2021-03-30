@@ -1,1 +1,29 @@
-<p>menu-principal works!</p>
+<!-- <div class="menu-principal">
+    <dx-data-grid>
+
+    </dx-data-grid>
+</div> -->
+
+
+
+<div class="menu-principal">
+    <dx-tab-panel
+        #tabPanel
+        [dataSource]="abasPrincipais"
+        [selectedIndex]="0"
+        [loop]="false"
+        [animationEnabled]="true"
+        [swipeEnabled]="true">
+
+        <div *dxTemplate="let aba of 'title'">
+            <span>{{aba.nomeAba}}</span>
+        </div>
+
+        <div *dxTemplate="let aba of 'item'">
+            <div *ngIf="aba.id == 0">
+                <app-pedidos></app-pedidos>
+            </div>
+        </div>
+
+    </dx-tab-panel>
+</div>

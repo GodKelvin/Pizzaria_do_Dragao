@@ -1,4 +1,5 @@
 export interface Usuario{
+    cd_usuario?: number,
     nome_usuario: string,
     senha: string,
     confirmar_senha: string,

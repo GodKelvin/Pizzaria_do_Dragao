@@ -4,6 +4,7 @@ export interface Login{
 }
 
 export interface ResponseLogin{
+    cd_usuario: number,
     token: string
 }
   

@@ -16,4 +16,8 @@ export class AuthService {
     return Boolean(this.loginResponse?.token);
   }
 
+  public getToken(): string{
+    return this.loginResponse?.token;
+  }
+
 }
