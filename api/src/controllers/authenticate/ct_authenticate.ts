@@ -20,7 +20,6 @@ interface User{
 
 export const authenticate = async (req: Request, res: Response): Promise<any> => {
     try{
-        console.log("REQ: ", req.body);
         const checkFields = validationResult(req);
         if(!checkFields.isEmpty()){
             res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
@@ -40,14 +39,10 @@ export const authenticate = async (req: Request, res: Response): Promise<any> =>
                 bcrypt.compare(senha, usuario.senha).then(valid => {
                     if(valid){
                         const tokenUser = jwt.sign({userId: usuario.cd_usuario, userName: usuario.nome}, Config.token.key_secret, Config.token.duration);
-                        
-                        const dataUser = {
-                            userName: usuario.nome,
-                            email: email
-                        };
 
                         const res_login = {
                             //user: dataUser,
+                            cd_usuario: usuario.cd_usuario,
                             token: tokenUser
                         };
                         res.status(HTTP_STATUS.OK).json(res_login);

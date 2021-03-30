@@ -28,6 +28,7 @@ export const getPizzaByID = async (req: Request, res: Response):Promise<any> => 
         })
 
     }catch(error){
+        console.log("ERROR: ", error);
         return res.status(500).json("Internal Server Error");
     }
 }
@@ -51,6 +52,7 @@ export const getAllPizzaDetails = async (req: Request, res: Response):Promise<an
 
 //        return res.status(200).json(response.rows);
     }catch(error){
+        console.log("ERROR: ", error);
         return res.status(500).json("SERVER INTERNAL ERROR");
     }
 }

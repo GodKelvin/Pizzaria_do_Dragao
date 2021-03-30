@@ -56,6 +56,7 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
             }
         });
     }catch(error){
+        console.log("ERROR: ", error);
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");
     }
 }
