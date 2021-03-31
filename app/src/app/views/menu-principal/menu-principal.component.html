@@ -1,12 +1,4 @@
 <!-- <div class="menu-principal">
-    <dx-data-grid>
-
-    </dx-data-grid>
-</div> -->
-
-
-
-<div class="menu-principal">
     <dx-tab-panel
         #tabPanel
         [dataSource]="abasPrincipais"
@@ -26,4 +18,45 @@
         </div>
 
     </dx-tab-panel>
+</div> -->
+
+<!-- <dx-data-grid>
+
+</dx-data-grid> -->
+
+
+<div style="background-color: black; margin-top: 1%;">
+    <dx-toolbar
+        [items]="toolbarContent">
+        
+    </dx-toolbar>
+
+    <dx-drawer 
+        openedStateMode="shrink"
+        position="left"
+        revealMode="slide"
+        [(opened)]="isDrawerOpen"
+        template="template"
+        [closeOnOutsideClick]="false">
+        
+        <div *dxTemplate="let data of 'template'" style="width: 200px">
+            <dx-list class="panel-lis dx-theme-accent-as-background-color"
+                [dataSource]="abasPrincipais"
+                [hoverStateEnabled]="true"
+                [activeStateEnabled]="false"
+                [focusStateEnabled]="true"
+                selectionMode="single"
+                (onSelectionChanged)="teste($event)">
+            </dx-list>
+        </div>
+        <!-- <div id="content" class="dx-theme-background-color"> 
+        </div> -->
+
+        <div class="dx-theme-background-color">
+            <div *ngIf="opcaoAtual==0">
+                <app-pedidos></app-pedidos>
+            </div>
+        </div>
+
+    </dx-drawer>
 </div>

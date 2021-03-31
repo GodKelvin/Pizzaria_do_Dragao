@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MenuPrincipalRoutingModule } from './menu-principal-routing.module';
 import { MenuPrincipalComponent } from './menu-principal.component';
-import { DxDataGridModule, DxTabPanelModule } from 'devextreme-angular';
+import { DxButtonGroupModule, DxButtonModule, DxDataGridModule, DxDrawerModule, DxDropDownBoxModule, DxListModule, DxPopupModule, DxScrollViewModule, DxTabPanelModule, DxToolbarModule } from 'devextreme-angular';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
 
 
@@ -13,7 +13,15 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
     CommonModule,
     MenuPrincipalRoutingModule,
     DxDataGridModule,
-    DxTabPanelModule
+    DxTabPanelModule,
+    DxDrawerModule,
+    DxToolbarModule,
+    DxListModule,
+    DxPopupModule,
+    DxDropDownBoxModule,
+    DxScrollViewModule,
+    DxButtonModule
+    
   ]
 })
 export class MenuPrincipalModule { }

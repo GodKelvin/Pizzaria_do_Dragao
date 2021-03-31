@@ -7,47 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuPrincipalComponent implements OnInit {
 
-  public companies: any[] = [{
-    "ID": 1,
-    "CompanyName": "SuprMart",
-    "Address": "702 SW 8th Street",
-    "City": "Bentonville",
-    "State": "Arkansas",
-    "Zipcode": 72716,
-    "Phone": "(800) 555-2797",
-    "Fax": "(800) 555-2171",
-    "Website": "http://www.nowebsitesupermart.com"
-}, {
-    "ID": 2,
-    "CompanyName": "El'Depot",
-    "Address": "2455 Paces Ferry Road NW",
-    "City": "Atlanta",
-    "State": "Georgia",
-    "Zipcode": 30339,
-    "Phone": "(800) 595-3232",
-    "Fax": "(800) 595-3231",
-    "Website": "http://www.nowebsitedepot.com"
-}, {
-    "ID": 3,
-    "CompanyName": "K&S Music",
-    "Address": "1000 Nicllet Mall",
-    "City": "Minneapolis",
-    "State": "Minnesota",
-    "Zipcode": 55403,
-    "Phone": "(612) 304-6073",
-    "Fax": "(612) 304-6074",
-    "Website": "http://www.nowebsitemusic.com"
-}, {
-    "ID": 4,
-    "CompanyName": "Tom Club",
-    "Address": "999 Lake Drive",
-    "City": "Issaquah",
-    "State": "Washington",
-    "Zipcode": 98027,
-    "Phone": "(800) 955-2292",
-    "Fax": "(800) 955-2293",
-    "Website": "http://www.nowebsitetomsclub.com"
-}];
+  
+  text: string;
+  toolbarContent = [{
+    widget: 'dxButton',
+    location: 'before',
+    options: {
+        icon: 'menu',
+        onClick: () => this.isDrawerOpen = !this.isDrawerOpen
+    }
+  }];
+  public navigation: any[] = [
+    { id: 1, text: "Products", icon: "product" },
+    { id: 2, text: "Sales", icon: "money" },
+    { id: 3, text: "Customers", icon: "group" },
+    { id: 4, text: "Employees", icon: "card" },
+    { id: 5, text: "Reports", icon: "chart" }
+  ];
+
+  isDrawerOpen: Boolean = true;
+  public opcaoAtual: number = 0;
+  ///////////////////////////////////
 
 
   public abasPrincipais: any[] = [];
@@ -59,10 +39,18 @@ export class MenuPrincipalComponent implements OnInit {
 
   private createAbas(): void{
     this.abasPrincipais = [
-      {id: 0, nomeAba: "Pedidos"},
-      {id: 1, nomeAba: "Minha Conta"},
-      {id: 2, nomeAba: "Opções"},
+      {id: 0, text: "Pedidos", icon: "product"},
+      {id: 1, text: "Minha Conta", icon: "card"},
+      {id: 2, text: "Opções", icon: "edit"},
+      {id: 3, text: "Sair", icon: "close"},
     ];
   
   }
+
+  public teste(event: any): void{
+    console.log("OPA: ", event);
+    this.opcaoAtual = event.addedItems[0]?.id;
+    console.log("OPCAO: ", this.opcaoAtual);
+  }
 }
+

@@ -10,7 +10,8 @@ export class AuthGuardService implements CanActivate{
 constructor(private authService: AuthService) { }
   canActivate(): boolean {
     //Verifica se esta autenticado antes de acessar as rotas protegidas
-    return this.authService.isAuthenticate();
+    //return this.authService.isAuthenticate();
+    return true;
   }
 
 }

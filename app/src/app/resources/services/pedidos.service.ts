@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pedido } from '../models/pedido.model';
+import { Pizza } from '../models/pizza.model';
 import { UsuarioService } from './usuario.service';
 
 @Injectable({
@@ -14,8 +15,15 @@ export class PedidosService {
 
   public getPedidosUsuario(): Observable<Pedido[]>{
     let idUser = this.usuarioService.getUsuarioID();
-    console.log("IDUSER: ", idUser);
     return this.http.get<Pedido[]>(`${this.url}/pedidos/user/${idUser}`);
+  }
+
+  public getDetalhesPedido(id_pedido: string): Observable<any>{
+    return this.http.get<any>(`${this.url}/pedidos/details/${id_pedido}`);
+  }
+
+  public getPizzasDetails(): Observable<Pizza[]>{
+    return this.http.get<Pizza[]>(`${this.url}/pizzas-details`);
   }
 
   
