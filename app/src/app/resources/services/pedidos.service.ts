@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pedido } from '../models/pedido.model';
+import { NovoPedido, Pedido } from '../models/pedido.model';
 import { Pizza } from '../models/pizza.model';
 import { UsuarioService } from './usuario.service';
 
@@ -24,6 +24,10 @@ export class PedidosService {
 
   public getPizzasDetails(): Observable<Pizza[]>{
     return this.http.get<Pizza[]>(`${this.url}/pizzas-details`);
+  }
+
+  public postPedido(pedido: NovoPedido): Observable<any>{
+    return this.http.post<any>(`${this.url}/pedidos`, pedido);
   }
 
   

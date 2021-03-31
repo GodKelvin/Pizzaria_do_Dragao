@@ -8,7 +8,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 })
 export class UsuarioService {
 
-  private url: string = "http://localhost:5000";
+  //private url: string = "http://localhost:5000";
   private helper = new JwtHelperService();
 
   //private usuarioLogado: Usuario;

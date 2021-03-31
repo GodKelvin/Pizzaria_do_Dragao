@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DetalhesPedido, Pedido } from 'src/app/resources/models/pedido.model';
+import { DetalhesPedido, NovoPedido, Pedido } from 'src/app/resources/models/pedido.model';
 import { Pizza } from 'src/app/resources/models/pizza.model';
 import { PedidosService } from 'src/app/resources/services/pedidos.service';
 import { notificacao } from 'src/app/resources/utils/UtilsUI';
 import { DxDataGridComponent} from 'devextreme-angular';
+import { UsuarioService } from 'src/app/resources/services/usuario.service';
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.component.html',
@@ -25,8 +26,18 @@ export class PedidosComponent implements OnInit {
   public listaPizzasDataPedido: any[] = [];
 
   public totalPedido: number = 0;
+  public optionsButtonNovoPedido: any =
+  {
+    icon: 'food',
+    text: 'Realizar Pedido',
+    type:"success",
+    onClick: this.novoPedido.bind(this)
+    
+  };
 
-  constructor(private pedidosService: PedidosService) { }
+  constructor(
+    private pedidosService: PedidosService,
+    private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
     this.getPizzasDetails();
@@ -118,13 +129,31 @@ export class PedidosComponent implements OnInit {
   }
 
   public novoPedido(): void{
-    console.log("NOVO PEDIDO");
-    let cdsPizza = [];
+    if(this.listaPizzasDataPedido.length < 1){
+      notificacao("Favor escolher pelo menos uma pizza", "warning");
+      return;
+    }
+    let cdsPizza: number[] = [];
     this.listaPizzasDataPedido.forEach(dataPizza => {
       cdsPizza.push(dataPizza.cd_pizza);
     });
 
-    console.log("CODIGOS PIZZA: ", cdsPizza);
+    let novoPedido: NovoPedido = {
+      lista_pizza: cdsPizza,
+      valor_pedido: this.totalPedido,
+      cd_usuario: this.usuarioService.getUsuarioID(),
+      data_pedido: new Date()
+    }
+
+    this.pedidosService.postPedido(novoPedido)
+    .subscribe(_res => {
+      this.totalPedido = 0;
+      this.listaPizzasDataPedido = [];
+      notificacao("Pedido realizado com sucesso", "success");
+    }, _error => {
+      notificacao("Erro ao realizar pedido, por favor, tente mais tarde", "error");
+    })
+
    
   }
 
@@ -146,21 +175,6 @@ export class PedidosComponent implements OnInit {
           onClick: this.adicionarAoCarrinhoPizzas.bind(this)
         }
       }
-    );
-  }
-
-  public onToolbarPreparingFinalizarPedido(event: any):void{
-    event.toolbarOptions.items.unshift(
-      {
-        location: 'after',
-        widget: 'dxButton',
-        options: {
-          icon: 'food',
-          text: 'Realizar Pedido',
-          type:"success",
-          onClick: this.novoPedido.bind(this)
-        }
-      },
     );
   }
 
