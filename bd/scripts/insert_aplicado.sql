@@ -29,7 +29,7 @@ create table PEDIDO(
 	cd_pedido SERIAL primary key not null,
 	valor_pedido float not null,
 	fk_cd_usuario integer not null,
-	data_pedido DATE
+	data_pedido timestamp
 );
 
 
