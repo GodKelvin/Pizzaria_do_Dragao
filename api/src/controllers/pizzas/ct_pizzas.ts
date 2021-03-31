@@ -39,10 +39,11 @@ export const getAllPizzaDetails = async (req: Request, res: Response):Promise<an
         .innerJoin('pizza_ingrediente', 'pizza.cd_pizza', 'pizza_ingrediente.fk_cd_pizza')
         .innerJoin('ingrediente', 'pizza_ingrediente.fk_cd_ingrediente', 'ingrediente.cd_ingrediente')
         .select(
-            'pizza.nm_pizza as nomePizza',
-            'pizza.preco as precoPizza',
-            bd.raw('json_agg((ingrediente.cd_ingrediente, ingrediente.nm_ingrediente)) as listaIngredientesPizza')
-        ).groupBy('pizza.nm_pizza', 'pizza.preco')
+            'pizza.cd_pizza as cd_pizza',
+            'pizza.nm_pizza as nm_pizza',
+            'pizza.preco as preco',
+            bd.raw('json_agg((ingrediente.nm_ingrediente, ingrediente.cd_ingrediente)) as listaIngredientesPizza')
+        ).groupBy('pizza.nm_pizza', 'pizza.preco', 'pizza.cd_pizza')
         .then(rows => {
             res.status(HTTP_STATUS.OK).json(rows);
         }).catch(error => {
