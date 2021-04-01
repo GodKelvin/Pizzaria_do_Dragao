@@ -5,7 +5,7 @@ const usersRoutes = Router();
 
 usersRoutes.get('/usuario', registerValidator(), ctrl.getDataUser);
 
-usersRoutes.post('/usuario', registerValidator(), ctrl.createUser);
+usersRoutes.post('/createUser', registerValidator(), ctrl.createUser);
 
 //No momento nao esta sendo utilizado
 //usersRoutes.put('/usuario', editValidator(), ctrl.editUser);

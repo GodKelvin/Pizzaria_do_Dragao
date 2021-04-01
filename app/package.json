@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "engines":{
+  "engines": {
     "node": "14.15.4",
     "npm": "6.14.10"
   },
@@ -26,6 +26,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "devextreme": "20.2.6",
     "devextreme-angular": "20.2.6",
+    "express": "^4.17.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
