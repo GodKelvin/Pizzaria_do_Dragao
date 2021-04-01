@@ -13,11 +13,9 @@ export const getPizzas = async (req: Request, res: Response):Promise<any> => {
     }
 }
 
-//Refatorar codigo
 export const getPizzaByID = async (req: Request, res: Response):Promise<any> => {
     try{
         const id = parseInt(req.params.id);
-        //const response: QueryResult = await pool.query("SELECT * FROM pizza WHERE cd_pizza = $1;", [id]);
         bd('pizza').
         where('cd_pizza', id)
         .then(rows => {
@@ -50,8 +48,6 @@ export const getAllPizzaDetails = async (req: Request, res: Response):Promise<an
             console.log("ERROR: ", error);
             res.status(500).json("Internal Server Error");
         })
-
-//        return res.status(200).json(response.rows);
     }catch(error){
         console.log("ERROR: ", error);
         return res.status(500).json("SERVER INTERNAL ERROR");

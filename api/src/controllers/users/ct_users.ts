@@ -28,8 +28,6 @@ export const getDataUser = async (req: Request, res: Response): Promise<any> => 
             }
             res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
         }
-        
-        //const data = jwt.verify(token, Config.token.key_secret);
     }catch(error){
         console.log("ERROR: ", error);
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");
@@ -143,38 +141,6 @@ export const editUser = async (req: Request, res: Response): Promise<any> => {
             .then(resBD => {
                 res.status(HTTP_STATUS.OK).json(resBD);
         });
-
-
-
-
-        // bd.select().from('usuario').where('email', data_usuario.email).then(row => {
-        //     if(!row.length){
-        //         //Verifica se as senhas sao iguais
-        //         if(data_usuario.senha != data_usuario.confirmar_senha){
-        //             let res_bad = {
-        //                 error: "Senhas não conferem"
-        //             };
-        //             res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
-        //             return;
-        //         }
-
-        //         bd('usuario')
-        //         .update(data_usuario)
-        //         .where("cd_usuario", cd_usuario)
-        //         .then(resBD => {
-        //             res.status(HTTP_STATUS.OK).json(resBD);
-        //         });
-
-
-        //     }else{
-        //         let res_bad = {
-        //             type: 'email',
-        //             error: "email já cadastrado"
-        //         };
-        //         res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
-        //     }
-        // });
-
     }catch(error){
         console.log("ERROR: ", error);
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");

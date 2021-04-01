@@ -3,11 +3,6 @@ export interface Login{
     senha: string
 }
 
-// export interface ResponseLogin{
-//     cd_usuario: number,
-//     token: string
-// }
-
 export interface ResponseLogin{
     token: string
 }

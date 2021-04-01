@@ -21,8 +21,6 @@ export class PedidosComponent implements OnInit {
   public popupNovoPedido: boolean = false;
   public gridBoxPedidos: number[] = [];
   public ingredientesPizzaSelecionada: any[] = [];
-
-  //public listaPizzasPedido: number[] = [];
   public listaPizzasDataPedido: any[] = [];
 
   public totalPedido: number = 0;
@@ -117,12 +115,7 @@ export class PedidosComponent implements OnInit {
   }
 
   public adicionarAoCarrinhoPizzas(): void{
-    //Array de envio para o post
-    //this.listaPizzasPedido = this.listaPizzasPedido.concat(this.dataGridPizzasSelecionadas.instance.getSelectedRowKeys());
-
-    //Array de lookup no datagrid
     this.listaPizzasDataPedido = this.listaPizzasDataPedido.concat(this.dataGridPizzasSelecionadas.instance.getSelectedRowsData());
-    
     this.dataGridPizzasSelecionadas.instance.getSelectedRowsData().forEach(pizza => {
       this.totalPedido += pizza.preco;
     })

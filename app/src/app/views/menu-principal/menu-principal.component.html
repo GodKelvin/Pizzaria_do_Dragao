@@ -1,30 +1,3 @@
-<!-- <div class="menu-principal">
-    <dx-tab-panel
-        #tabPanel
-        [dataSource]="abasPrincipais"
-        [selectedIndex]="0"
-        [loop]="false"
-        [animationEnabled]="true"
-        [swipeEnabled]="true">
-
-        <div *dxTemplate="let aba of 'title'">
-            <span>{{aba.nomeAba}}</span>
-        </div>
-
-        <div *dxTemplate="let aba of 'item'">
-            <div *ngIf="aba.id == 0">
-                <app-pedidos></app-pedidos>
-            </div>
-        </div>
-
-    </dx-tab-panel>
-</div> -->
-
-<!-- <dx-data-grid>
-
-</dx-data-grid> -->
-
-
 <div style="background-color: black; margin-top: 1%;">
     <dx-toolbar
         [items]="toolbarContent">
@@ -49,8 +22,6 @@
                 (onSelectionChanged)="changeOption($event)">
             </dx-list>
         </div>
-        <!-- <div id="content" class="dx-theme-background-color"> 
-        </div> -->
 
         <div class="dx-theme-background-color">
             <div *ngIf="opcaoAtual==0">
@@ -58,10 +29,6 @@
             </div>
 
             <div *ngIf="opcaoAtual==1">
-                <app-minha-conta></app-minha-conta>
-            </div>
-
-            <div *ngIf="opcaoAtual==2">
                 <app-minha-conta></app-minha-conta>
             </div>
         </div>

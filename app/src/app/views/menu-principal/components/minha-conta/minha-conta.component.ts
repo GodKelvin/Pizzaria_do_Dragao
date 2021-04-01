@@ -56,9 +56,5 @@ export class MinhaContaComponent implements OnInit {
         notificacao("Erro ao alterar senha, por favor, tente mais tarde", "error");
       })
     }
-
   }
-
-
-
 }

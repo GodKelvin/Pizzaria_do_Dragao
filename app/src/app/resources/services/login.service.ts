@@ -4,7 +4,6 @@ import { Login, ResponseLogin } from '../models/login.model';
 import { Observable } from 'rxjs';
 import {tap} from 'rxjs/operators';
 import { AuthService } from './auth.service';
-import { UsuarioService } from './usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,6 @@ export class LoginService {
   constructor(
     private http: HttpClient, 
     private authService: AuthService, 
-    private usuarioService: UsuarioService,
     //Utilizado para nao passar pelo interceptor, visto que no login nao precisamos de enviar o token
     handler: HttpBackend) { 
       this.http = new HttpClient(handler);

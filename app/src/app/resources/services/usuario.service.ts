@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-//import { Usuario } from '../models/user.model';
 import { AuthService } from './auth.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from 'rxjs';

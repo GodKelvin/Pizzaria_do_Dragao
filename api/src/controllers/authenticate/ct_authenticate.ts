@@ -5,7 +5,6 @@ import {validationResult} from 'express-validator';
 import {HTTP_STATUS} from '../../utils/utils';
 import jwt from 'jsonwebtoken';
 import Config from '../../app-config.model';
-//Checar parametros
 
 interface User{
     cd_usuario: number,
@@ -41,8 +40,6 @@ export const authenticate = async (req: Request, res: Response): Promise<any> =>
                         const tokenUser = jwt.sign({userId: usuario.cd_usuario, userName: usuario.nome}, Config.token.key_secret, Config.token.duration);
 
                         const res_login = {
-                            //user: dataUser,
-                            //cd_usuario: usuario.cd_usuario,
                             token: tokenUser
                         };
                         res.status(HTTP_STATUS.OK).json(res_login);

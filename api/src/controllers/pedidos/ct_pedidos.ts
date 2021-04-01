@@ -167,17 +167,6 @@ export const deletePedido = async (req: Request, res: Response):Promise<any> => 
         }
 
         const id_pedido = parseInt(req.params.id_pedido);
-        // bd('pedido_pizza')
-        // .del()
-        // .where('fk_cd_pedido', id_pedido)
-        // .then(_rows => {
-        //     bd('pedido')
-        //     .del()
-        //     .where('cd_pedido', id_pedido)
-        //     .then(rows => {
-        //         res.status(200).json(rows);
-        //     })
-        // });
         bd.transaction((trx) => {
             return trx('pedido_pizza')
                 .del()
@@ -204,24 +193,3 @@ export const deletePedido = async (req: Request, res: Response):Promise<any> => 
         res.status(500).json("Internal Server Error");
     }
 }
-
-// export const deleteItemPedido = async (req: Request, res: Response):Promise<any> => {
-//     try{
-//         const checkFields = validationResult(req);
-//         if(!checkFields.isEmpty()){
-//             res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
-//             return;
-//         }
-
-//         const id_item_pedido = parseInt(req.params.id_item_pedido);
-//         bd('pedido_pizza')
-//         .where('cd_pedido_pizza', id_item_pedido)
-//         .then(rows => {
-//             res.status(200).json(rows);
-//         });
-//     }catch(error){
-//         console.log("ERROR: ", error);
-//         res.status(500).json("Internal Server Error");
-//     }
-// }
-
