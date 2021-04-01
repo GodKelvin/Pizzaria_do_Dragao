@@ -17,4 +17,7 @@ app.use(/\/((?!login)(?!createUser).)*/, authMiddleware);
 //Importa as rotas
 app.use(indexRoutes);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+let port = process.env.PORT || 3000;
+
+
+app.listen(port, () => console.log("Server running on port ", port));
