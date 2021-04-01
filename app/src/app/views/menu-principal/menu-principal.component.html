@@ -46,7 +46,7 @@
                 [activeStateEnabled]="false"
                 [focusStateEnabled]="true"
                 selectionMode="single"
-                (onSelectionChanged)="teste($event)">
+                (onSelectionChanged)="changeOption($event)">
             </dx-list>
         </div>
         <!-- <div id="content" class="dx-theme-background-color"> 
@@ -58,6 +58,10 @@
             </div>
 
             <div *ngIf="opcaoAtual==1">
+                <app-minha-conta></app-minha-conta>
+            </div>
+
+            <div *ngIf="opcaoAtual==2">
                 <app-minha-conta></app-minha-conta>
             </div>
         </div>

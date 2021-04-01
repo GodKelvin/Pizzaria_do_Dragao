@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/resources/services/auth.service';
 
 @Component({
   selector: 'app-menu-principal',
@@ -6,9 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu-principal.component.css']
 })
 export class MenuPrincipalComponent implements OnInit {
-
-  
-  text: string;
   toolbarContent = [{
     widget: 'dxButton',
     location: 'before',
@@ -17,21 +16,12 @@ export class MenuPrincipalComponent implements OnInit {
         onClick: () => this.isDrawerOpen = !this.isDrawerOpen
     }
   }];
-  public navigation: any[] = [
-    { id: 1, text: "Products", icon: "product" },
-    { id: 2, text: "Sales", icon: "money" },
-    { id: 3, text: "Customers", icon: "group" },
-    { id: 4, text: "Employees", icon: "card" },
-    { id: 5, text: "Reports", icon: "chart" }
-  ];
 
   isDrawerOpen: Boolean = true;
   public opcaoAtual: number = 0;
-  ///////////////////////////////////
-
 
   public abasPrincipais: any[] = [];
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.createAbas();
@@ -46,10 +36,12 @@ export class MenuPrincipalComponent implements OnInit {
   
   }
 
-  public teste(event: any): void{
-    console.log("OPA: ", event);
+  public changeOption(event: any): void{
     this.opcaoAtual = event.addedItems[0]?.id;
-    console.log("OPCAO: ", this.opcaoAtual);
+    if(this.opcaoAtual == 2){
+      this.authService.clear();
+      this.router.navigate(['']);
+    }
   }
 }
 

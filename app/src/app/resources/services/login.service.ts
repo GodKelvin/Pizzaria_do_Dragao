@@ -26,7 +26,6 @@ export class LoginService {
     .pipe(tap((loginResponse) => {
       //Quando login for feito com sucesso, armazena o token e o cd_usuario
       this.authService.loginResponse = loginResponse;
-      //this.usuarioService.id_usuario_logado = loginResponse?.cd_usuario;
     }));
   }
 }

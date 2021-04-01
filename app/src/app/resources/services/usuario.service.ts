@@ -18,8 +18,6 @@ export class UsuarioService {
   constructor(private authService: AuthService, private http: HttpClient, ) { }
 
   public getUsuarioID(): number{
-    //remover
-    return 1;
     let datauser = this.helper.decodeToken(this.authService.loginResponse.token)
     return datauser?.userId;
   }
