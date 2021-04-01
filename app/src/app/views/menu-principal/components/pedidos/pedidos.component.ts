@@ -138,17 +138,20 @@ export class PedidosComponent implements OnInit {
       cdsPizza.push(dataPizza.cd_pizza);
     });
 
+    console.log(new Date().toISOString());
+
     let novoPedido: NovoPedido = {
       lista_pizza: cdsPizza,
       valor_pedido: this.totalPedido,
       cd_usuario: this.usuarioService.getUsuarioID(),
-      data_pedido: new Date()
+      data_pedido: new Date().toISOString()
     }
 
     this.pedidosService.postPedido(novoPedido)
     .subscribe(_res => {
       this.totalPedido = 0;
       this.listaPizzasDataPedido = [];
+      this.getPedidosUsuario();
       notificacao("Pedido realizado com sucesso", "success");
     }, _error => {
       notificacao("Erro ao realizar pedido, por favor, tente mais tarde", "error");
@@ -179,10 +182,24 @@ export class PedidosComponent implements OnInit {
   }
 
   public removerItemPedido(event: any){
-    console.log("REMOVER: ", event);
-    console.log("LISTA: ", this.listaPizzasDataPedido);
     if(event && event.data){
       this.totalPedido -= event.data.preco;
+    }
+  }
+
+  public deletePedido(event: any): void{
+    console.log("PEDIDO DEL: ", event);
+    if(event && event.data){
+      let id_pedido = event.data.cd_pedido;
+      console.log("ID PEDIDO: ", id_pedido);
+      this.pedidosService.deletePedido(id_pedido)
+      .subscribe(res => {
+        console.log("RES: ", res);
+        this.ingredientesPizzaSelecionada = [];
+        notificacao("Pedido cancelado com sucesso", "success");
+      }, _error => {
+        notificacao("Erro ao cancelar pedido", "error");
+      });
     }
   }
 

@@ -42,7 +42,7 @@ export const authenticate = async (req: Request, res: Response): Promise<any> =>
 
                         const res_login = {
                             //user: dataUser,
-                            cd_usuario: usuario.cd_usuario,
+                            //cd_usuario: usuario.cd_usuario,
                             token: tokenUser
                         };
                         res.status(HTTP_STATUS.OK).json(res_login);

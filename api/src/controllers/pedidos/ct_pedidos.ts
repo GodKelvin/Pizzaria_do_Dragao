@@ -115,7 +115,7 @@ export const postPedido = async (req: Request, res: Response):Promise<any> => {
 
         let cd_pedido: Number = 0;
         let {lista_pizza, cd_usuario, valor_pedido, data_pedido} = req.body;
-        console.log("VALORES: ", lista_pizza, cd_usuario, valor_pedido);
+        
         bd.transaction((trx) => {
             //Insere o id no banco de dados e captura o ID da insercao
             return trx('pedido').insert({
@@ -148,11 +148,9 @@ export const postPedido = async (req: Request, res: Response):Promise<any> => {
             }
             res.status(HTTP_STATUS.OK).json(res_ok);
         }).catch(error => {
-            console.log("ERROR TRANSACTION INSERT PEDIDO 1: ", error);
+            console.log("ERROR TRANSACTION INSERT PEDIDO 2: ", error);
             res.status(HTTP_STATUS.SERVER_ERROR).json("Internal Server Error");
         });
-
-       
 
     }catch(error){
         console.log("ERROR: ", error);
@@ -169,10 +167,37 @@ export const deletePedido = async (req: Request, res: Response):Promise<any> => 
         }
 
         const id_pedido = parseInt(req.params.id_pedido);
-        bd('pedido')
-        .where('cd_pedido', id_pedido)
-        .then(rows => {
-            res.status(200).json(rows);
+        // bd('pedido_pizza')
+        // .del()
+        // .where('fk_cd_pedido', id_pedido)
+        // .then(_rows => {
+        //     bd('pedido')
+        //     .del()
+        //     .where('cd_pedido', id_pedido)
+        //     .then(rows => {
+        //         res.status(200).json(rows);
+        //     })
+        // });
+        bd.transaction((trx) => {
+            return trx('pedido_pizza')
+                .del()
+                .where('fk_cd_pedido', id_pedido)
+                .then(_rows => {
+                    return trx('pedido').del().where('cd_pedido', id_pedido);
+
+                })
+                .then(trx.commit)
+                .catch(error => {
+                    trx.rollback();
+                    console.log("ERROR TRANSACTION DELETE PEDIDO: ", error);
+                })
+            .then(resBD => {
+                res.status(HTTP_STATUS.OK).json(id_pedido);
+            })
+            .catch(error => {
+                console.log("ERROR TRANSACTION DELETE PEDIDO 2: ", error);
+                res.status(HTTP_STATUS.SERVER_ERROR).json("Internal Server Error");
+            })
         });
     }catch(error){
         console.log("ERROR: ", error);
@@ -180,23 +205,23 @@ export const deletePedido = async (req: Request, res: Response):Promise<any> => 
     }
 }
 
-export const deleteItemPedido = async (req: Request, res: Response):Promise<any> => {
-    try{
-        const checkFields = validationResult(req);
-        if(!checkFields.isEmpty()){
-            res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
-            return;
-        }
+// export const deleteItemPedido = async (req: Request, res: Response):Promise<any> => {
+//     try{
+//         const checkFields = validationResult(req);
+//         if(!checkFields.isEmpty()){
+//             res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
+//             return;
+//         }
 
-        const id_item_pedido = parseInt(req.params.id_item_pedido);
-        bd('pedido_pizza')
-        .where('cd_pedido_pizza', id_item_pedido)
-        .then(rows => {
-            res.status(200).json(rows);
-        });
-    }catch(error){
-        console.log("ERROR: ", error);
-        res.status(500).json("Internal Server Error");
-    }
-}
+//         const id_item_pedido = parseInt(req.params.id_item_pedido);
+//         bd('pedido_pizza')
+//         .where('cd_pedido_pizza', id_item_pedido)
+//         .then(rows => {
+//             res.status(200).json(rows);
+//         });
+//     }catch(error){
+//         console.log("ERROR: ", error);
+//         res.status(500).json("Internal Server Error");
+//     }
+// }
 

@@ -15,7 +15,7 @@ pedidosRoutes.post('/pedidos', pedidoValidator(), ctrl.postPedido);
 pedidosRoutes.post('/pedidos/item/', pedidoItemValidator(), ctrl.postItemPedido);
 
 pedidosRoutes.delete('/pedidos/:id_pedido', ctrl.deletePedido);
-pedidosRoutes.delete('/pedidos/item/:id_item_pedido', ctrl.deleteItemPedido);
+//pedidosRoutes.delete('/pedidos/item/:id_item_pedido', ctrl.deleteItemPedido);
 
 //Funcoes que checa os parametros obrigatorios das rotas
 function pedidoValidator() {

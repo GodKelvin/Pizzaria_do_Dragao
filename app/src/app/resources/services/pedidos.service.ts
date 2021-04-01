@@ -30,6 +30,10 @@ export class PedidosService {
     return this.http.post<any>(`${this.url}/pedidos`, pedido);
   }
 
+  public deletePedido(id_pedido: string): Observable<any>{
+    return this.http.delete<any>(`${this.url}/pedidos/${id_pedido}`);
+  }
+
   
 
 }

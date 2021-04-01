@@ -15,5 +15,5 @@ export interface NovoPedido{
     lista_pizza: number[],
     valor_pedido: number,
     cd_usuario: number,
-    data_pedido: Date
+    data_pedido: string
 }

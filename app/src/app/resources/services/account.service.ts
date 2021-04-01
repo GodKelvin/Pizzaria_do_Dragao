@@ -13,7 +13,7 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   public createAccount(dadosNovaConta: Usuario): Observable<any>{
-    return this.http.post<any>(`${this.url}/createUser`, dadosNovaConta);
+    return this.http.post<any>(`${this.url}/usuario`, dadosNovaConta);
   }
 
 }

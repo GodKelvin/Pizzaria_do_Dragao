@@ -6,10 +6,16 @@
     [focusStateEnabled]="true"
     (onFocusedRowChanged)="getDetalhesPedido($event)"
     (onToolbarPreparing)="onToolbarPreparingPedidos($event)"
-    rowAlternationEnabled="true">
-    <!-- (onToolbarPreparing)="onToolbarPreparingPedidos($event)" -->
+    rowAlternationEnabled="true"
+    (onRowRemoving)="deletePedido($event)">
     
-    <dxi-column dataField="data_pedido" caption="Data do Pedido" dataType="datetime"></dxi-column>
+    <dxo-editing 
+        mode="row"
+        [allowDeleting]="true"
+        useIcons="true">
+    </dxo-editing>
+    
+    <dxi-column dataField="data_pedido" caption="Data do Pedido" dataType="date"></dxi-column>
     <dxi-column dataField="valor_pedido" caption="Valor do pedido"></dxi-column>
     <dxi-column dataField="cd_pedido" caption="Código do pedido"></dxi-column>
 
@@ -51,7 +57,7 @@
     
     <dx-scroll-view width="100%" height="100%">
         <div style="display: flex;">
-            <div style="width: 50%; border-style: dotted;">
+            <div style="width: 50%; border-style: solid;">
                 <dx-data-grid
                     #dataGridPizzas
                     [dataSource]="detalhesPizzas"
@@ -75,7 +81,7 @@
                 </dx-data-grid>
             </div>
 
-            <div style="width: 20%; border-style: dotted; margin-right: 1%;">
+            <div style="width: 20%; border-style:solid ; margin-right: 1%;">
                 <dx-data-grid
                     [dataSource]="ingredientesPizzaSelecionada"
                     keyExpr="f2"
@@ -99,8 +105,6 @@
                         useIcons="true">
                     </dxo-editing>
                     <dxi-column dataField="nm_pizza" caption="Pizzas no Pedido"></dxi-column>
-
-
                 </dx-data-grid>
             </div>
         </div>

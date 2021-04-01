@@ -27,7 +27,6 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
         const token = authorization.replace('Bearer', '').trim();
         //Verificar se os dados do token fazem sentido
         const data = jwt.verify(token, Config.token.key_secret);
-        console.log("DATA: ", data);
         //Prosseguir com os middlewares
         return next();
     }catch{

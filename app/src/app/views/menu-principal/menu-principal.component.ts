@@ -41,8 +41,7 @@ export class MenuPrincipalComponent implements OnInit {
     this.abasPrincipais = [
       {id: 0, text: "Pedidos", icon: "product"},
       {id: 1, text: "Minha Conta", icon: "card"},
-      {id: 2, text: "Opções", icon: "edit"},
-      {id: 3, text: "Sair", icon: "close"},
+      {id: 2, text: "Sair", icon: "close"},
     ];
   
   }
