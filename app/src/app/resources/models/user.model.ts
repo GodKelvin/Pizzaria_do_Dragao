@@ -7,5 +7,10 @@ export interface Usuario{
     cpf: string,
     data_nascimento: Date,
     telefone: string,
-    tipo_usuario: number
+    tipo_usuario?: number
 }
+
+export interface Password{
+    senha: string,
+    confirmar_senha: string
+  }

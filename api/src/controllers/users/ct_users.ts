@@ -93,6 +93,7 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
     }
 }
 
+//No momento nao esta sendo utilizado
 export const editUser = async (req: Request, res: Response): Promise<any> => {
     try{
         const checkFields = validationResult(req);
@@ -105,12 +106,118 @@ export const editUser = async (req: Request, res: Response): Promise<any> => {
         data_usuario.senha = bcrypt.hashSync(data_usuario.senha, 9);
 
         delete data_usuario.cd_usuario;
-        bd('usuario')
-        .update(data_usuario)
-        .where("cd_usuario", cd_usuario)
-        .then(resBD => {
-            res.status(HTTP_STATUS.OK).json(resBD);
+
+        //Verifico se o usuario quer editar o email
+        if(data_usuario.email){
+            await bd.select().from('usuario').where('email', data_usuario.email).then(row => {
+                if(row.length > 0){
+                    let res_bad = {
+                        type: 'email',
+                        error: "email já cadastrado"
+                    };
+                    res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+                    return;
+                }
+            });
+        }
+        console.log("OPA 1");
+
+        //Verificar se o usuaro quer editar a senha
+        if(data_usuario.senha && data_usuario.confirmar_senha){
+            if(data_usuario.senha != data_usuario.confirmar_senha){
+                let res_bad = {
+                    error: "Senhas não conferem"
+                };
+                res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+                return;
+            }
+            data_usuario.senha = bcrypt.hashSync(data_usuario.senha, 9);
+            delete data_usuario.confirmar_senha;
+            
+        }
+        console.log("OPA 2");
+
+        await bd('usuario')
+            .update(data_usuario)
+            .where("cd_usuario", cd_usuario)
+            .then(resBD => {
+                res.status(HTTP_STATUS.OK).json(resBD);
         });
+
+
+
+
+        // bd.select().from('usuario').where('email', data_usuario.email).then(row => {
+        //     if(!row.length){
+        //         //Verifica se as senhas sao iguais
+        //         if(data_usuario.senha != data_usuario.confirmar_senha){
+        //             let res_bad = {
+        //                 error: "Senhas não conferem"
+        //             };
+        //             res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+        //             return;
+        //         }
+
+        //         bd('usuario')
+        //         .update(data_usuario)
+        //         .where("cd_usuario", cd_usuario)
+        //         .then(resBD => {
+        //             res.status(HTTP_STATUS.OK).json(resBD);
+        //         });
+
+
+        //     }else{
+        //         let res_bad = {
+        //             type: 'email',
+        //             error: "email já cadastrado"
+        //         };
+        //         res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+        //     }
+        // });
+
+    }catch(error){
+        console.log("ERROR: ", error);
+        res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");
+    }
+}
+
+export const editPassword = async (req: Request, res: Response): Promise<any> => {
+    try{
+        const checkFields = validationResult(req);
+        if(!checkFields.isEmpty()){
+            res.status(HTTP_STATUS.BAD_REQUEST).json(checkFields);
+            return;
+        }
+        let token: any = req.headers.authorization;
+        if(token){
+            let data:any = jwt.verify(token, Config.token.key_secret);
+            let userID: any = data.userId;
+            let data_usuario = req.body;
+    
+            if(data_usuario.senha != data_usuario.confirmar_senha){
+                let res_bad = {
+                    error: "Senhas não conferem"
+                };
+                res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+                return;
+            }else{
+                data_usuario.senha = bcrypt.hashSync(data_usuario.senha, 9);
+                delete data_usuario.confirmar_senha;
+        
+                bd('usuario')
+                    .update(data_usuario)
+                    .where("cd_usuario", userID)
+                    .then(resBD => {
+                        res.status(HTTP_STATUS.OK).json(resBD);
+                });
+            }
+            
+        }else{
+            let res_bad = {
+                error: "Pendente token"
+            }
+            res.status(HTTP_STATUS.BAD_REQUEST).json(res_bad);
+        } 
     }catch(error){
         console.log("ERROR: ", error);
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER ERROR");

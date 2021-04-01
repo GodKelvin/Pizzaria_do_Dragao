@@ -1,1 +1,124 @@
-opa
+<div style="overflow: auto; margin-left: 1%; margin-right: 1%; height: 100%;">
+    <dx-toolbar>
+        <dxi-item 
+            location="center" 
+            text="Minha Conta">
+        </dxi-item>
+    </dx-toolbar>
+
+    <dx-form
+        [formData]="dataUser"
+        readOnly=true>
+        <!--Nome-->
+        <dxi-item 
+            itemType="group"
+            [colCount]="2">
+            <dxi-item 
+                dataField="nome"
+                editorType="dxTextBox"
+                [editorOptions]="{width: '100%'}">
+                <dxo-label text="Nome Completo" location="top"></dxo-label>
+            </dxi-item>
+
+            <!--Email-->
+            <dxi-item 
+                dataField="email"
+                editorType="dxTextBox"
+                [editorOptions]="{width: '100%'}">
+                <dxo-label text="Email" location="top"></dxo-label>
+            </dxi-item>
+        </dxi-item>
+
+        <!--CPF-->
+        <dxi-item 
+            itemType="group"
+            [colCount]="3">
+            <dxi-item 
+                dataField="cpf"
+                editorType="dxTextBox"
+                [editorOptions]="{width: '100%'}">
+                <dxo-label text="CPF" location="top"></dxo-label>
+            </dxi-item>
+
+            <!--Data Nascimento-->
+            <dxi-item 
+                dataField="data_nascimento"
+                editorType="dxDateBox"
+                [editorOptions]="{width: '100%', displayFormat: 'dd/MM/yyyy'}">
+                <dxo-label text="Data de Nascimento" location="top"></dxo-label>
+            </dxi-item>
+
+            <!--telefone-->
+            <dxi-item 
+                dataField="telefone"
+                editorType="dxTextBox"
+                [editorOptions]="{width: '100%'}">
+                <dxo-label text="Telefone" location="top"></dxo-label>
+            </dxi-item>
+        </dxi-item>
+    </dx-form>
+
+    <!--Show popup alterar senha-->
+    <div style="text-align: center; padding-top: 2%;">
+        <dx-button
+            icon="key"
+            stylingMode="success"
+            text="Alterar senha"
+            type="success"
+            [width]="160"
+            (onClick)="showPopUpAlterarSenha()">
+        </dx-button>
+    </div>
+
+    <!--Titulo-->
+    <!-- <div class="titleCriaConta">
+        <img 
+        class="divImgCriarConta"
+        src="../../../assets/nova_conta.png"
+        alt="pizza">
+    </div> -->
+</div>
+
+<!--Form Troca de senha-->
+<dx-popup
+    [(visible)]="showPopUp"
+    title="Alterar Senha">
+    <!--Div scroll-->
+    <div style="overflow: auto; height: 400px;">
+        <dx-form
+            [(formData)]="formPass">
+
+            <!--Senha-->
+            <dxi-item 
+                itemType="group"
+                [colCount]="2">
+                <dxi-item 
+                    dataField="senha"
+                    editorType="dxTextBox"
+                    [editorOptions]="{width: '100%', mode: 'password'}">
+                    <dxo-label text="Senha" location="top"></dxo-label>
+                </dxi-item>
+
+                <!--Confirmar senhar-->
+                <dxi-item 
+                    dataField="confirmar_senha"
+                    editorType="dxTextBox"
+                    [editorOptions]="{width: '100%', mode: 'password'}">
+                    <dxo-label text="Confirmar Senha" location="top"></dxo-label>
+                </dxi-item>
+            </dxi-item>
+        </dx-form>
+
+        <!--Criar nova conta-->
+        <div style="text-align: center; padding-top: 2%;">
+            <dx-button
+                icon="warning"
+                stylingMode="success"
+                text="Alterar"
+                type="success"
+                [width]="120"
+                (onClick)="alterarSenha()">
+            </dx-button>
+        </div>
+    </div>
+</dx-popup>

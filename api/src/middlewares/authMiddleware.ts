@@ -29,7 +29,8 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
         const data = jwt.verify(token, Config.token.key_secret);
         //Prosseguir com os middlewares
         return next();
-    }catch{
+    }catch(error){
+        console.log("ERROR AUTH MIDDLEWARE: ", error);
         res.status(HTTP_STATUS.SERVER_ERROR).json("SERVER INTERNAL ERROR");
     }
 }
