@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { NovoPedido, Pedido } from '../models/pedido.model';
 import { Pizza } from '../models/pizza.model';
 import { UsuarioService } from './usuario.service';
+import { environment } from '../../../environments/environment'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidosService {
 
-  private url: string = "http://localhost:5000";
+  private url: string = environment.urlAPI;
   constructor(private http: HttpClient, private usuarioService: UsuarioService) { }
 
   public getPedidosUsuario(): Observable<Pedido[]>{

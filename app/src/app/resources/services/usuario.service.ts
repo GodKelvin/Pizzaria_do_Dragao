@@ -4,12 +4,14 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Password } from '../models/user.model';
+import { environment } from '../../../environments/environment'; 
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuarioService {
 
-  private url: string = "http://localhost:5000";
+  private url: string = environment.urlAPI;
   private helper = new JwtHelperService();
 
   //private usuarioLogado: Usuario;
